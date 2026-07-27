@@ -7,6 +7,8 @@ import com.example.website.Mappers.UserMapper;
 import com.example.website.Repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
     private final UserRepository userRepository;
@@ -18,14 +20,21 @@ public class UserService {
     public UserResponse createUser(UserRequest request){
         UserEntity user = UserMapper.toUser(request);
         UserEntity savedUser = userRepository.save(user);
-        UserResponse response = UserMapper.toUserResponse(savedUser);
-        return response;
+        return UserMapper.toUserResponse(savedUser);
     }
+
     public UserResponse getUserById(Long id){
         UserEntity user = userRepository.findById(id).orElse(null);
         if(user == null){
             return null;
         }
         return UserMapper.toUserResponse(user);
+    }
+
+    public List<UserResponse> listUsers(){
+        List<UserEntity> users = userRepository.findAll();
+        return users.stream()
+                .map(UserMapper::toUserResponse)
+                .toList();
     }
 }
