@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,14 +32,35 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponse> getUserById(@PathVariable Long id){
-        UserResponse response = userService.getUserById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+    public ResponseEntity<?> getUserById(@PathVariable Long id){
+        try {
+            UserResponse response = userService.getUserById(id);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        }
+        catch(RuntimeException re){
+            // TODO: temp error handling via try/catch, using ResponseEntity<?> to cover happy/sad path types
+            // refactor to @RestControllerAdvice tomorrow
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(re.getMessage());
+        }
     }
 
     @GetMapping
     public ResponseEntity<List<UserResponse>> listUsers(){
         List<UserResponse> responses = userService.listUsers();
         return ResponseEntity.status(HttpStatus.OK).body(responses);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody UserRequest request){
+        try {
+            UserResponse response = userService.updateUser(id, request);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        }
+        catch(RuntimeException re) {
+            // TODO: temp error handling via try/catch, using ResponseEntity<?> to cover happy/sad path types
+            // refactor to @RestControllerAdvice tomorrow
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(re.getMessage());
+        }
+
     }
 }

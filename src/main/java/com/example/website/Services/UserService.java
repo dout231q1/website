@@ -24,10 +24,7 @@ public class UserService {
     }
 
     public UserResponse getUserById(Long id){
-        UserEntity user = userRepository.findById(id).orElse(null);
-        if(user == null){
-            return null;
-        }
+        UserEntity user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found with Id: " + id));
         return UserMapper.toUserResponse(user);
     }
 
@@ -36,5 +33,15 @@ public class UserService {
         return users.stream()
                 .map(UserMapper::toUserResponse)
                 .toList();
+    }
+
+    public UserResponse updateUser(Long id, UserRequest request){
+        UserEntity userFound = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found with Id: " + id));
+        userFound.setName(request.name());
+        userFound.setEmail(request.email());
+        userFound.setPassword(request.password());
+        UserEntity updatedUser = userRepository.save(userFound);
+        return UserMapper.toUserResponse(updatedUser);
+
     }
 }
