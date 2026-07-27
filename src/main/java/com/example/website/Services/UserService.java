@@ -21,4 +21,11 @@ public class UserService {
         UserResponse response = UserMapper.toUserResponse(savedUser);
         return response;
     }
+    public UserResponse getUserById(Long id){
+        UserEntity user = userRepository.findById(id).orElse(null);
+        if(user == null){
+            return null;
+        }
+        return UserMapper.toUserResponse(user);
+    }
 }
