@@ -1,4 +1,4 @@
-package com.example.website.Infra;
+package com.example.website.infra;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;

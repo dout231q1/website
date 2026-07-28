@@ -1,4 +1,4 @@
-package com.example.website.Infra;
+package com.example.website.infra;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

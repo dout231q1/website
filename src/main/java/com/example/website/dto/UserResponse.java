@@ -1,4 +1,4 @@
-package com.example.website.DTOS;
+package com.example.website.dto;
 
 public record UserResponse(
         Long id,

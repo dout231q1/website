@@ -1,4 +1,4 @@
-package com.example.website.Infra;
+package com.example.website.infra;
 
 public class EntityNotFoundException extends RuntimeException {
     public EntityNotFoundException(String message) {

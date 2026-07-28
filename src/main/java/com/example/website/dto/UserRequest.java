@@ -1,4 +1,4 @@
-package com.example.website.DTOS;
+package com.example.website.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;

@@ -1,11 +1,11 @@
-package com.example.website.Services;
+package com.example.website.service;
 
-import com.example.website.DTOS.UserRequest;
-import com.example.website.DTOS.UserResponse;
-import com.example.website.Entities.UserEntity;
-import com.example.website.Infra.EntityNotFoundException;
-import com.example.website.Mappers.UserMapper;
-import com.example.website.Repositories.UserRepository;
+import com.example.website.dto.UserRequest;
+import com.example.website.dto.UserResponse;
+import com.example.website.entity.UserEntity;
+import com.example.website.infra.EntityNotFoundException;
+import com.example.website.mapper.UserMapper;
+import com.example.website.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

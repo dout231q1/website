@@ -1,8 +1,8 @@
-package com.example.website.Mappers;
+package com.example.website.mapper;
 
-import com.example.website.DTOS.UserRequest;
-import com.example.website.DTOS.UserResponse;
-import com.example.website.Entities.UserEntity;
+import com.example.website.dto.UserRequest;
+import com.example.website.dto.UserResponse;
+import com.example.website.entity.UserEntity;
 import lombok.Getter;
 import lombok.Setter;
 

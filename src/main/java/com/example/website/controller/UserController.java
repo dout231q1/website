@@ -1,8 +1,8 @@
-package com.example.website.Controllers;
+package com.example.website.controller;
 
-import com.example.website.DTOS.UserRequest;
-import com.example.website.DTOS.UserResponse;
-import com.example.website.Services.UserService;
+import com.example.website.dto.UserRequest;
+import com.example.website.dto.UserResponse;
+import com.example.website.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
