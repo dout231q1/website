@@ -32,16 +32,9 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable Long id){
-        try {
-            UserResponse response = userService.getUserById(id);
-            return ResponseEntity.status(HttpStatus.OK).body(response);
-        }
-        catch(RuntimeException re){
-            // TODO: temp error handling via try/catch, using ResponseEntity<?> to cover happy/sad path types
-            // refactor to @RestControllerAdvice tomorrow
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(re.getMessage());
-        }
+    public ResponseEntity<UserResponse> getUserById(@PathVariable Long id){
+        UserResponse response = userService.getUserById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @GetMapping
@@ -51,16 +44,8 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody UserRequest request){
-        try {
-            UserResponse response = userService.updateUser(id, request);
-            return ResponseEntity.status(HttpStatus.OK).body(response);
-        }
-        catch(RuntimeException re) {
-            // TODO: temp error handling via try/catch, using ResponseEntity<?> to cover happy/sad path types
-            // refactor to @RestControllerAdvice tomorrow
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(re.getMessage());
-        }
-
+    public ResponseEntity<UserResponse> updateUser(@PathVariable Long id, @RequestBody UserRequest request){
+        UserResponse response = userService.updateUser(id, request);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

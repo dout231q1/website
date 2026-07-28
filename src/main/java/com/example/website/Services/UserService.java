@@ -3,6 +3,7 @@ package com.example.website.Services;
 import com.example.website.DTOS.UserRequest;
 import com.example.website.DTOS.UserResponse;
 import com.example.website.Entities.UserEntity;
+import com.example.website.Infra.EntityNotFoundException;
 import com.example.website.Mappers.UserMapper;
 import com.example.website.Repositories.UserRepository;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class UserService {
     }
 
     public UserResponse getUserById(Long id){
-        UserEntity user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found with Id: " + id));
+        UserEntity user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found with Id: " + id));
         return UserMapper.toUserResponse(user);
     }
 
@@ -36,7 +37,7 @@ public class UserService {
     }
 
     public UserResponse updateUser(Long id, UserRequest request){
-        UserEntity userFound = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found with Id: " + id));
+        UserEntity userFound = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found with Id: " + id));
         userFound.setName(request.name());
         userFound.setEmail(request.email());
         userFound.setPassword(request.password());
