@@ -43,6 +43,5 @@ public class UserService {
         userFound.setPassword(request.password());
         UserEntity updatedUser = userRepository.save(userFound);
         return UserMapper.toUserResponse(updatedUser);
-
     }
 }
