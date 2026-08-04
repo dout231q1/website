@@ -1,22 +1,19 @@
 package com.example.website.dto;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public record UserRequest(
-        @NotEmpty(message = "Username cannot be empty")
-        @Min(message = "Name must be at least 4 characters long.", value = 4)
-        @Max(message = "Name cannot exceed 25 characters.", value = 25)
+        @NotBlank(message = "Username cannot be empty")
+        @Size(min = 4, max = 25, message = "Username must be between 4 and 25 characters long.")
         String name,
 
-        @NotEmpty(message = "Email address cannot be empty")
+        @NotBlank(message = "Email address cannot be empty")
         @Email(message = "Please provide a valid email address")
         String email,
 
-        @NotEmpty(message = "Password cannot be empty")
-        @Min(message = "Password must be at least 8 characters long.", value = 8)
-        @Max(message = "Password cannot exceed 64 characters.", value = 64)
+        @NotBlank(message = "Password cannot be empty")
+        @Size(min = 8, max = 64, message = "Password must be between 8 and 64 characters long.")
         String password
 ){}
