@@ -33,5 +33,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(status).body(e);
     }
 
+    @ExceptionHandler(EmailAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> handleEmailAlreadyExistsException(EmailAlreadyExistsException eaee){
+        HttpStatus status = HttpStatus.CONFLICT;
+        ErrorResponse e = new ErrorResponse(status, eaee.getMessage());
+        return ResponseEntity.status(status).body(e);
+    }
+
 
 }

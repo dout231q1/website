@@ -1,5 +1,6 @@
 package com.example.website.service;
 
+import com.example.website.infra.EmailAlreadyExistsException;
 import com.example.website.infra.ErrorMessages;
 import com.example.website.dto.UserRequest;
 import com.example.website.dto.UserResponse;
@@ -21,6 +22,7 @@ public class UserService {
 
     public UserResponse createUser(UserRequest request){
         UserEntity user = UserMapper.toUser(request);
+        validateUniqueEmail(user.getEmail());
         UserEntity savedUser = userRepository.save(user);
         return UserMapper.toUserResponse(savedUser);
     }
@@ -54,5 +56,11 @@ public class UserService {
     private UserEntity findUserById(Long id){
         return userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorMessages.USER_NOT_FOUND.formatted(id)));
+    }
+
+    private void validateUniqueEmail(String email){
+        if(userRepository.existsByEmail(email)){
+            throw new EmailAlreadyExistsException(ErrorMessages.EMAIL_ALREADY_EXISTS.formatted(email));
+        }
     }
 }
