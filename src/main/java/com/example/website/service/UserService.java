@@ -1,5 +1,6 @@
 package com.example.website.service;
 
+import com.example.website.infra.ErrorMessages;
 import com.example.website.dto.UserRequest;
 import com.example.website.dto.UserResponse;
 import com.example.website.entity.UserEntity;
@@ -25,7 +26,7 @@ public class UserService {
     }
 
     public UserResponse getUserById(Long id){
-        UserEntity user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found with Id: " + id));
+        UserEntity user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(ErrorMessages.USER_NOT_FOUND.formatted(id)));
         return UserMapper.toUserResponse(user);
     }
 
@@ -37,7 +38,7 @@ public class UserService {
     }
 
     public UserResponse updateUser(Long id, UserRequest request){
-        UserEntity userFound = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found with Id: " + id));
+        UserEntity userFound = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(ErrorMessages.USER_NOT_FOUND.formatted(id)));
         userFound.setName(request.name());
         userFound.setEmail(request.email());
         userFound.setPassword(request.password());
@@ -46,7 +47,7 @@ public class UserService {
     }
 
     public void deleteUser(Long id){
-        UserEntity user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found with Id: " + id));
+        UserEntity user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(ErrorMessages.USER_NOT_FOUND.formatted(id)));
         userRepository.delete(user);
     }
 }
