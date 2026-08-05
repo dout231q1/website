@@ -26,7 +26,7 @@ public class UserService {
     }
 
     public UserResponse getUserById(Long id){
-        UserEntity user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(ErrorMessages.USER_NOT_FOUND.formatted(id)));
+        UserEntity user = findUserById(id);
         return UserMapper.toUserResponse(user);
     }
 
@@ -38,16 +38,21 @@ public class UserService {
     }
 
     public UserResponse updateUser(Long id, UserRequest request){
-        UserEntity userFound = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(ErrorMessages.USER_NOT_FOUND.formatted(id)));
-        userFound.setName(request.name());
-        userFound.setEmail(request.email());
-        userFound.setPassword(request.password());
-        UserEntity updatedUser = userRepository.save(userFound);
+        UserEntity user = findUserById(id);
+        user.setName(request.name());
+        user.setEmail(request.email());
+        user.setPassword(request.password());
+        UserEntity updatedUser = userRepository.save(user);
         return UserMapper.toUserResponse(updatedUser);
     }
 
     public void deleteUser(Long id){
-        UserEntity user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(ErrorMessages.USER_NOT_FOUND.formatted(id)));
+        UserEntity user = findUserById(id);
         userRepository.delete(user);
+    }
+
+    private UserEntity findUserById(Long id){
+        return userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorMessages.USER_NOT_FOUND.formatted(id)));
     }
 }
